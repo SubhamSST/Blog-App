@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser'); // saves up each session so that 
 const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const methodOverride=require('method-override');
+const cors=require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
+app.use(cors({
+    origin:["https://bloggitaway.onrender.com"],
+        methods:["POST","GET","DELETE"] ,
+    credentials: true
+}));
 
 app.use(session({
     secret: 'keyboard cat',
